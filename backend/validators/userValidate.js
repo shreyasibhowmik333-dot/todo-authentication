@@ -1,0 +1,31 @@
+import yup from "yup"
+
+export const userSchema = yup.object({
+    userName: yup
+        .string()
+        .trim()
+        .min(3, "UserName must be atleast three characters")
+        .required(),
+    email: yup.string().email("The email is not valid one").required(),
+    password: yup.string().min(4, "Password must be atleast 4 characters"),
+
+
+    password: yup
+    .string()
+    .required("Please enter your password")
+    .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "Must contain 8 characters, one uppercase, one lowercase, one number and one special character"
+    )
+})
+
+export const validateUser = (schema) => async (req, res, next) => {
+    try {
+        await schema.validate(req.body)
+        next()
+    } catch (err) {
+        return res.status(400).json({ errors: err.errors })
+    }
+}
+
+
