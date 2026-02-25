@@ -5,7 +5,7 @@ export const todoSchema = yup.object({
     .string()
     .trim()
     .min(5, "Title must be atleast 5 characters")
-    .max(10, "Title must be atmost 10 characters")
+    .max(20, "Title must be atmost 20 characters")
     .required()
 })
 
